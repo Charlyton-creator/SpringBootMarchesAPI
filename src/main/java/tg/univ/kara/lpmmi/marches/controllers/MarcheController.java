@@ -10,7 +10,7 @@ import tg.univ.kara.lpmmi.marches.services.MarcheServiceImpl;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins= "http://localhost:8081")
+@CrossOrigin(origins="http://localhost:8081")
 @RestController
 public class MarcheController {
     @Autowired
@@ -34,7 +34,7 @@ public class MarcheController {
     //
     @PutMapping(path="/marches/edit/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Marche updateMarche(@PathVariable("id") Long id,@RequestBody Marche marche)
+    public boolean updateMarche(@PathVariable("id") Long id,@RequestBody Marche marche)
     {
         Optional<Marche> array = marcheServiceImpl.getMarchebyId(id);
         if(array.isPresent()){
@@ -47,15 +47,15 @@ public class MarcheController {
             marcheupdatable.setCategorie_produit(marche.getCategorie_produit());
             marcheServiceImpl.updateMarche(marcheupdatable);
         }
-        return array.get();
+        return true;
     }
     //
     @PostMapping("/marches/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Marche storeNewMarche(@RequestBody Marche marche)
+    public boolean storeNewMarche(@RequestBody Marche marche)
     {
         marcheServiceImpl.addMarche(marche);
-        return marche;
+        return true;
     }
 
 }
